@@ -20,8 +20,7 @@
   "dependencies": {
     "angular": "^1.5.3",
     "angular-sanitize": "^1.5.3",
-    "angular-ui-router": "^0.2.18",
-    "bootstrap-sass": "^3.3.6"
+    "angular-ui-router": "^0.2.18"
   },
   "scripts": {
     "prestart": "npm install",

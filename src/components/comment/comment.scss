@@ -31,12 +31,18 @@
   font-size: 12px;
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 3px;
+  .comment-edit & {
+    display: none;
+  }
 }
 
 .comment-header-text {
   max-width: 78%;
   padding-top: 10px;
   padding-bottom: 10px;
+  .comment-edit & {
+    display: none;
+  }
 }
 
 .comment-header-input {
@@ -60,6 +66,9 @@
   float: right;
   margin-right: -5px;
   margin-left: 10px;
+  .comment-edit & {
+    display: none;
+  }
 }
 
 .comment-edit-button {
@@ -76,8 +85,12 @@
 
 
 .comment-edit-title {
-  max-width: 78%;
+  display: none;
+  width: 100%;
   padding: 10px 0;
+  .comment-edit & {
+    display: block;
+  }
 }
 
 .comment-body {
@@ -87,11 +100,18 @@
   font-size: 14px;
   line-height: 1.6;
   word-wrap: break-word;
+  .comment-edit & {
+    display: none;
+  }
 }
 
 .write-content {
   padding: 0 0 10px;
   margin: 0 10px;
+  display: none;
+  .comment-edit & {
+    display: block;
+  }
 }
 
 .comment-textarea {
@@ -118,13 +138,17 @@
 }
 
 .comment-tabnav {
-  background-color: #fff;
+  background: #f7f7f7;
   padding: 6px 10px 0;
   border-radius: 3px 3px 0 0;
   margin: 0 0 10px;
   position: relative;
   margin-bottom: 15px;
   border-bottom: 1px solid #ddd;
+  display: none;
+  .comment-edit & {
+    display: block;
+  }
 }
 
 .tabnav-tabs {
@@ -143,11 +167,60 @@
   border-bottom: 0;
   &:hover {
     text-decoration: none;
+    cursor: pointer;
   }
   &.selected {
     color: #333;
     background-color: #fff;
     border-color: #ddd;
     border-radius: 3px 3px 0 0;
+  }
+}
+
+
+.form-actions {
+  display: none;
+  padding: 0 10px 10px;
+  &:before {
+    display: table;
+    content: "";
+  }
+  &:after {
+    display: table;
+    clear: both;
+    content: "";
+  }
+  .comment-edit & {
+    display: block;
+  }
+  .btn {
+    margin-left: 10px;
+  }
+}
+
+.btn {
+  float: right;
+  position: relative;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  &.btn-primary {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+    background-color: #60b044;
+    background-image: linear-gradient(#8add6d, #60b044);
+    border-color: #5ca941;
   }
 }
