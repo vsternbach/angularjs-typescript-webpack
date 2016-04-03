@@ -29,12 +29,13 @@ import {IComment} from "../../interfaces";
                 <div class="comment-content">
                     <div class="comment-tabnav">
                         <nav class="tabnav-tabs" role="tablist">
-                            <button type="button" class="btn-link tabnav-tab write-tab js-write-tab selected" role="tab">Write</button>
-                            <button type="button" class="btn-link tabnav-tab preview-tab js-preview-tab" role="tab">Preview</button>
+                            <button type="button" class="btn-link tabnav-tab" role="tab" ng-class="{selected: !$ctrl.previewMode}" ng-click="$ctrl.previewMode = false">Write</button>
+                            <button type="button" class="btn-link tabnav-tab" role="tab" ng-class="{selected: $ctrl.previewMode}" ng-click="$ctrl.previewMode = true">Preview</button>
                         </nav>
                     </div>
                     <div class="write-content">
-                        <textarea placeholder="Leave a comment" class="comment-textarea" ng-model="$ctrl.comment.text"></textarea>
+                        <textarea placeholder="Leave a comment" class="comment-textarea" ng-model="$ctrl.comment.text" ng-hide="$ctrl.previewMode"></textarea>
+                        <p ng-bind-html="$ctrl.comment.text || 'Nothing to preview'" ng-show="$ctrl.previewMode"></p>
                     </div>
                     <div class="comment-body" ng-bind-html="$ctrl.comment.text"></div>
                 </div>
@@ -56,17 +57,19 @@ class CommentController {
 
     constructor() {
         this.editMode = !this.comment.id;
-        this.comment.inputTags = angular.copy(this.comment.tags);
     }
 
     edit() {
         this.editMode = true;
         this.commentCopy = angular.copy(this.comment);
+        this.comment.inputTags = angular.copy(this.comment.tags || []);
     }
 
     save() {
         this.editMode = !this.comment.id;
-        this.comment.tags = this.comment.inputTags.map((el:any) => el.text);
+        if (this.comment.inputTags) {
+            this.comment.tags = this.comment.inputTags.map((el:any) => el.text);
+        }
         (this.onAdd || angular.noop)();
     }
 

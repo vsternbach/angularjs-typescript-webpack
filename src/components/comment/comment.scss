@@ -122,6 +122,11 @@ tags-input {
   padding: 0 0 10px;
   margin: 0 10px;
   display: none;
+  p {
+    min-height: 200px;
+    padding: 10px;
+    margin: 0;
+  }
   .comment-edit & {
     display: block;
   }
