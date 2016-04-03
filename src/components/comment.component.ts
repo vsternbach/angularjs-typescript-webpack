@@ -1,8 +1,8 @@
 /**
  * Created by voland on 4/2/16.
  */
-import Component from '../decorators';
-//import 'comment.scss!sass';
+import Component from 'decorators';
+import 'components/comment.scss';
 
 @Component('app.components', 'comment', {
     template: `

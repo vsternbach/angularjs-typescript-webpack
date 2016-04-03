@@ -4,7 +4,8 @@
 export default function Component(moduleOrName: string | ng.IModule, selector: string, options: {
     controllerAs?: string,
     template?: string,
-    templateUrl?: string
+    templateUrl?: string,
+    bindings? : any
 }) {
     return (controller: Function) => {
         var module = typeof moduleOrName === "string"
