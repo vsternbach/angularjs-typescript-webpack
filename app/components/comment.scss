@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+
+.discussion-timeline {
+  position: relative;
+  margin: 0 auto;
+  width: 760px;
+  &:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 79px;
+    z-index: -1;
+    display: block;
+    width: 2px;
+    content: "";
+    background-color: #f3f3f3;
+  }
+}
+
+.comment-wrapper {
+  position: relative;
+  padding-left: 64px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.comment {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.comment-header {
+  padding-right: 15px;
+  padding-left: 15px;
+  color: #767676;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #eee;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.comment-header-text {
+  max-width: 78%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.comment-actions {
+  float: right;
+  margin-right: -5px;
+  margin-left: 10px;
+}
+
+.comment-body {
+  width: 100%;
+  padding: 15px;
+  overflow: visible;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.6;
+  word-wrap: break-word;
+}

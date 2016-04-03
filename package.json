@@ -1,0 +1,26 @@
+{
+  "name": "angular-seed",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A starter project for AngularJS",
+  "repository": "https://github.com/angular/angular-seed",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.6.1",
+    "plugin-sass": "github:mobilexag/plugin-sass",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.11"
+  },
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-sanitize": "^1.5.3",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap-sass": "^3.3.6",
+    "systemjs": "^0.19.25"
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8000 -c-1",
+    "pretest": "npm install"
+  }
+}
