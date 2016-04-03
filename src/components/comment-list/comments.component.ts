@@ -3,23 +3,47 @@
  */
 import Component from '../../decorators';
 import './comment-list.scss';
+import {IComment} from "../../interfaces";
 
 @Component('app.components', 'comments', {
     template: `
         <div class="container-fluid">
             <div class="discussion-timeline">
-              <comment ng-repeat="comment in $ctrl.comments" comment="comment"></comment>
-              <!--<comment></comment>-->
+                <tags-input ng-model="$ctrl.tagFilter">
+                    <auto-complete source="$ctrl.tags"></auto-complete>
+                </tags-input>
+                <comment ng-repeat="comment in $ctrl.comments | filterByTags:$ctrl.tagFilter" comment="comment" tags="$ctrl.tags"></comment>
+                <comment comment="$ctrl.emptyComment" on-add="$ctrl.addComment()" tags="$ctrl.tags"></comment>
             </div>
         </div>`
 })
 class CommentsController {
-    comments;
+    comments: IComment[];
+    emptyComment: IComment;
+    tags: string[];
+    tagFilter: any[];
 
     static $inject = ['Comments'];
     constructor(private Comments) {
+        this.emptyComment = {};
+        this.tagFilter = [];
         Comments.getComments().then((comments) => {
-            this.comments = comments
+            this.comments = comments;
+            this.tags = this.comments
+                .map((el) => el.tags)
+                .reduce((prev, curr) => [...prev, ...curr])
+                .filter((elem, pos, arr) => arr.indexOf(elem) == pos);
         });
+    }
+
+    private getCommentId() {
+        let arr = this.comments.map((el) => el.id);
+        return Math.max(...arr) + 1;
+    }
+
+    addComment() {
+        this.emptyComment.id = this.getCommentId();
+        this.comments.push(this.emptyComment);
+        this.emptyComment = {};
     }
 }

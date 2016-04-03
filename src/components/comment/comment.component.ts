@@ -3,8 +3,14 @@
  */
 import Component from '../../decorators';
 import './comment.scss';
+import {IComment} from "../../interfaces";
 
 @Component('app.components', 'comment', {
+    bindings: {
+        comment: '=',
+        tags: '=',
+        onAdd: '&'
+    },
     template: `
         <div class="comment-wrapper">
             <div class="comment" ng-class="{'comment-edit': $ctrl.editMode}">
@@ -32,23 +38,25 @@ import './comment.scss';
                     </div>
                     <div class="comment-body" ng-bind-html="$ctrl.comment.text"></div>
                 </div>
+                <tags-input ng-model="$ctrl.comment.inputTags" placeholder="Add tags">
+                    <auto-complete source="$ctrl.tags"></auto-complete>
+                </tags-input>
                 <div class="form-actions">
                     <button ng-click="$ctrl.save()" class="btn btn-primary" tabindex="2">Comment</button>
-                    <button ng-click="$ctrl.discard()" class="btn" tabindex="3">Discard</button>
+                    <button ng-if="$ctrl.comment.id" ng-click="$ctrl.discard()" class="btn" tabindex="3">Discard</button>
                 </div>
             </div>
-        </div>`,
-    bindings: {
-        comment: '='
-    }
+        </div>`
 })
 class CommentController {
     editMode: boolean;
-    comment: any;
-    commentCopy: any;
+    comment: IComment;
+    commentCopy: IComment;
+    onAdd: any;
 
     constructor() {
-        this.editMode = false;
+        this.editMode = !this.comment.id;
+        this.comment.inputTags = angular.copy(this.comment.tags);
     }
 
     edit() {
@@ -57,7 +65,9 @@ class CommentController {
     }
 
     save() {
-        this.editMode = false;
+        this.editMode = !this.comment.id;
+        this.comment.tags = this.comment.inputTags.map((el:any) => el.text);
+        (this.onAdd || angular.noop)();
     }
 
     discard() {
