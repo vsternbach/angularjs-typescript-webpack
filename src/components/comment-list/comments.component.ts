@@ -1,7 +1,8 @@
 /**
  * Created by voland on 4/2/16.
  */
-import Component from '../decorators';
+import Component from '../../decorators';
+import './comment-list.scss';
 
 @Component('app.components', 'comments', {
     template: `

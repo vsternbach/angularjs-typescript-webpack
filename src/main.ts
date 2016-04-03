@@ -7,8 +7,8 @@ import 'angular-ui-router';
 
 import services   from './services/services.module';
 import components from './components/components.module';
-import './components/comment.component.ts';
-import './components/comments.component.ts';
+import './components/comment/comment.component.ts';
+import './components/comment-list/comments.component.ts';
 
 // configure the main module
 angular.module('app', [
