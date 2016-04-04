@@ -20,11 +20,11 @@ its package manager (npm) installed.  You can get them from [http://nodejs.org/]
 
 ### Clone angularjs-typescript-webpack
 
-Clone the angularjs-typescript-webpack repository using [git][git]:
+Clone the angularjs-typescript-webpack repository using git:
 
 ### Install Dependencies
 
-We have two kinds of dependencies in this project: development tools and application specific packages. They are both with [node package manager][npm].
+We have two kinds of dependencies in this project: development tools and application specific packages. They are both managed with npm in package.json as devDependencies and dependecies respectively.
 
 ```
 npm install
