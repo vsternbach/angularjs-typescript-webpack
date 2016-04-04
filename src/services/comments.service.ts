@@ -10,7 +10,7 @@ export class Comments {
     }
 
     getComments() {
-        return this.$http.get('mock.json').then((response: {data: IComment[]}) => {
+        return this.$http.get('assets/mock.json').then((response: {data: IComment[]}) => {
             return response.data;
         });
     };

@@ -11,22 +11,13 @@ import components from './components/components.module';
 import './components/comment/comment.component';
 import './components/comment-list/comments.component';
 
-// configure the main module
-angular.module('app', [
-    'ngTagsInput',
-    'ngSanitize',
-    'ui.router',
-    services.name,
-    components.name
-])
-.config(function($urlRouterProvider, $stateProvider, tagsInputConfigProvider) {
+function appConfig ($urlRouterProvider, $stateProvider, tagsInputConfigProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('index', {
             url: '/',
             template: '<comments></comments>'
         });
-
     tagsInputConfigProvider
         .setDefaults('tagsInput', {
             placeholder: 'Search tags',
@@ -35,7 +26,18 @@ angular.module('app', [
         .setDefaults('autoComplete', {
             minLength: 1
         })
-});
+}
+appConfig.$inject = ['$urlRouterProvider', '$stateProvider', 'tagsInputConfigProvider'];
+
+// configure the main module
+angular.module('app', [
+    'ngTagsInput',
+    'ngSanitize',
+    'ui.router',
+    services.name,
+    components.name
+])
+.config(appConfig);
 
 // bootstrap angular
 angular.element(document).ready(() => {

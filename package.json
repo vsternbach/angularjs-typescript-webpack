@@ -1,14 +1,16 @@
 {
-  "name": "angular-seed",
+  "name": "angularjs-typescript-webpack",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "Angularjs-typescript-webpack starter project",
+  "repository": "https://github.com/vsternbach/angularjs-typescript-webpack",
   "license": "MIT",
   "devDependencies": {
     "awesome-typescript-loader": "^0.17.0-rc.4",
+    "copyfiles": "^0.2.1",
     "css-loader": "^0.23.1",
     "node-sass": "^3.4.2",
+    "rimraf": "^2.5.2",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.1",
@@ -26,6 +28,6 @@
   "scripts": {
     "prestart": "npm install",
     "start": "webpack-dev-server --hot",
-    "bundle": "cp src/index.html dist/ & webpack -p ./dist/bundle.js"
+    "bundle": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & webpack -p ./dist/bundle.js"
   }
 }
