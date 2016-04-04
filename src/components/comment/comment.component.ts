@@ -1,6 +1,7 @@
 /**
  * Created by voland on 4/2/16.
  */
+
 import Component from '../../decorators';
 import './comment.scss';
 import {IComment} from "../../interfaces";
@@ -9,7 +10,8 @@ import {IComment} from "../../interfaces";
     bindings: {
         comment: '=',
         tags: '=',
-        onAdd: '&'
+        onAdd: '&',
+        onDelete: '&'
     },
     template: `
         <div class="comment-wrapper">
@@ -18,6 +20,9 @@ import {IComment} from "../../interfaces";
                     <div class="comment-actions">
                         <button type="button" class="comment-edit-button" title="Edit comment" ng-click="$ctrl.edit()">
                             <svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path d="M0 12v3h3l8-8-3-3L0 12z m3 2H1V12h1v1h1v1z m10.3-9.3l-1.3 1.3-3-3 1.3-1.3c0.39-0.39 1.02-0.39 1.41 0l1.59 1.59c0.39 0.39 0.39 1.02 0 1.41z"></path></svg>
+                        </button>
+                        <button type="button" class="comment-edit-button" title="Delete comment" ng-click="$ctrl.remove()">
+                            <svg aria-hidden="true" class="octicon octicon-trashcan" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M10 2H8c0-0.55-0.45-1-1-1H4c-0.55 0-1 0.45-1 1H1c-0.55 0-1 0.45-1 1v1c0 0.55 0.45 1 1 1v9c0 0.55 0.45 1 1 1h7c0.55 0 1-0.45 1-1V5c0.55 0 1-0.45 1-1v-1c0-0.55-0.45-1-1-1z m-1 12H2V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9z m1-10H1v-1h9v1z"></path></svg>
                         </button>
                     </div>
                     <div class="comment-tag" ng-repeat="tag in $ctrl.comment.tags">{{tag}}</div>
@@ -53,7 +58,8 @@ class CommentController {
     editMode: boolean;
     comment: IComment;
     commentCopy: IComment;
-    onAdd: any;
+    onAdd: () => void;
+    onDelete: () => void;
 
     constructor() {
         this.editMode = !this.comment.id;
@@ -71,6 +77,10 @@ class CommentController {
             this.comment.tags = this.comment.inputTags.map((el:any) => el.text);
         }
         (this.onAdd || angular.noop)();
+    }
+
+    remove() {
+        (this.onDelete || angular.noop)();
     }
 
     discard() {

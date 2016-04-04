@@ -12,7 +12,7 @@ import {IComment} from "../../interfaces";
                 <tags-input ng-model="$ctrl.tagFilter">
                     <auto-complete source="$ctrl.tags"></auto-complete>
                 </tags-input>
-                <comment ng-repeat="comment in $ctrl.comments | filterByTags:$ctrl.tagFilter" comment="comment" tags="$ctrl.tags"></comment>
+                <comment ng-repeat="comment in $ctrl.comments | filterByTags:$ctrl.tagFilter" comment="comment" tags="$ctrl.tags" on-delete="$ctrl.deleteComment(comment)"></comment>
                 <comment comment="$ctrl.emptyComment" on-add="$ctrl.addComment()" tags="$ctrl.tags"></comment>
             </div>
         </div>`
@@ -45,5 +45,10 @@ class CommentsController {
         this.emptyComment.id = this.getCommentId();
         this.comments.push(this.emptyComment);
         this.emptyComment = {};
+    }
+
+    deleteComment(comment: IComment) {
+        let index = this.comments.indexOf(comment);
+        this.comments.splice(index, 1);
     }
 }
