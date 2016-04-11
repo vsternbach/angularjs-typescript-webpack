@@ -1,21 +1,53 @@
-* {
-  box-sizing: border-box;
-  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$formBg: #EFEFEF;
+$buttonBg: #3FA9DB;
+$buttonColor: #fff;
+$defaultFont: 12px arial, sans-serif;
+
+.container {
+  margin: 0 auto;
+  min-width: 350px;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  font: $defaultFont;
+  border-radius: 5px;
 }
 
-.discussion-timeline {
-  position: relative;
-  margin: 0 auto;
-  width: 760px;
-  &:before {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 15px;
-    z-index: -1;
-    display: block;
-    width: 2px;
-    content: "";
-    background-color: #f3f3f3;
-  }
+.comment-form, .comment-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.comment-form {
+  background-color: $formBg;
+}
+
+.comment-form-email, .comment-form-text, .comment-form-submit, .comment-filter {
+  margin: 10px 0 0;
+}
+
+.input {
+  padding: 10px;
+  font: inherit;
+}
+
+.textarea {
+  padding: 10px;
+  height: 100px;
+  resize: none;
+  font: inherit;
+}
+
+.comment-form-submit {
+  align-self: flex-end;
+  display: inline;
+  padding: 9px 15px;
+  font: inherit;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: $buttonColor;
+  background-color: $buttonBg;
+  border: none;
+  border-radius: 5px;
 }
