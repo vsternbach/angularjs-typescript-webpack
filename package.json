@@ -1,26 +1,33 @@
 {
-  "name": "angular-seed",
+  "name": "angularjs-typescript-webpack",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "Angularjs-typescript-webpack starter project",
+  "repository": "https://github.com/vsternbach/angularjs-typescript-webpack",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^0.6.1",
-    "plugin-sass": "github:mobilexag/plugin-sass",
+    "awesome-typescript-loader": "^0.17.0-rc.4",
+    "copyfiles": "^0.2.1",
+    "css-loader": "^0.23.1",
+    "node-sass": "^3.4.2",
+    "rimraf": "^2.5.2",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.1",
     "typescript": "^1.8.9",
-    "typings": "^0.7.11"
+    "typings": "^0.7.11",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "angular": "^1.5.3",
     "angular-sanitize": "^1.5.3",
     "angular-ui-router": "^0.2.18",
-    "bootstrap-sass": "^3.3.6",
-    "systemjs": "^0.19.25"
+    "ng-tags-input": "^3.0.0"
   },
   "scripts": {
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1",
-    "pretest": "npm install"
+    "start": "webpack-dev-server --hot",
+    "bundle": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & webpack -p ./dist/bundle.js"
   }
 }
