@@ -22,18 +22,11 @@ import {IComment} from "../../interfaces";
 class CommentsController {
     newComment: IComment;
     comments: IComment[];
-    commentFilter: string;
 
-    static $inject = ['Comments'];
-    constructor(private Comments) {
+    constructor() {
         this.newComment = null;
         this.comments = [];
     }
-    //
-    // private getCommentId() {
-    //     let arr = this.comments.map((el) => el.id);
-    //     return arr.length ? Math.max(...arr) + 1 : 1;
-    // }
 
     addComment() {
         this.comments.push(angular.copy(this.newComment));

@@ -7,8 +7,12 @@
   justify-content: flex-start;
 }
 
-.comment > img {
+.gravatar {
   position: absolute;
   margin-left: -50px;
   height: 40px;
+}
+.email {
+  margin-bottom: 5px;
+  font-weight: 600;
 }

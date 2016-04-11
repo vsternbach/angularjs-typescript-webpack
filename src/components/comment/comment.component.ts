@@ -1,10 +1,12 @@
 /**
  * Created by voland on 4/2/16.
  */
-
 import Component from '../../decorators';
 import './comment.scss';
 import {IComment} from "../../interfaces";
+import md5 = require('blueimp-md5');
+
+const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
 
 @Component('app.components', 'comment', {
     bindings: {
@@ -12,7 +14,7 @@ import {IComment} from "../../interfaces";
     },
     template: `
         <div class="comment">
-            <img class="gravatar" ng-src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="">
+            <img class="gravatar" ng-src="{{$ctrl.hash()}}" alt="">
             <div class="email">{{$ctrl.comment.email}}</div>
             <div class="text">{{$ctrl.comment.text}}</div>
         </div>`
@@ -20,6 +22,9 @@ import {IComment} from "../../interfaces";
 class CommentController {
     comment: IComment;
 
-    constructor() {
+    constructor() {}
+
+    hash(email) {
+        return GRAVATAR_URL + md5(email);
     }
 }
