@@ -36,19 +36,6 @@ We have two kinds of dependencies in this project: development tools and applica
 npm install
 ```
 
-### Run the Application
-
-We have preconfigured the project with a simple development web server.  The simplest way to start
-this server is:
-
-```
-npm start
-```
-
-Now browse to the app at `http://localhost:8080/`.
-
-
-
 ## Directory Layout
 
 ```
@@ -62,13 +49,9 @@ src/                    --> all of the source files for the application
 
 ### Running the App during Development
 
-Typescript development is dependant on typings project, that need to be installed globally prior to development.
-
-```
-sudo npm install -g typings
-```
-
 The angularjs-typescript-webpack project comes preconfigured with a local development webserver. It is a webpack-dev-server, that supports hot reload.  You can start this webserver with `npm start`.
+
+Now browse to the app at `http://localhost:8080/`.
 
 ### Building and running the App in Production
 
