@@ -26,7 +26,7 @@
     "ng-tags-input": "^3.0.0"
   },
   "scripts": {
-    "prestart": "npm install",
+    "prestart": "npm install & typings install",
     "start": "webpack-dev-server --hot",
     "bundle": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & webpack -p ./dist/bundle.js"
   }
