@@ -2,6 +2,12 @@
  * Created by voland on 4/2/16.
  */
 
+const module = function(moduleOrName) {
+    return typeof moduleOrName === "string"
+        ? angular.module(moduleOrName)
+        : moduleOrName;
+};
+
 export function Component(options: {
     selector: string,
     controllerAs?: string,
@@ -10,22 +16,19 @@ export function Component(options: {
     bindings? : any
 }, moduleOrName: string | ng.IModule = 'app.components') {
     return (controller: Function) => {
-        var selector = options.selector;
-        var module = typeof moduleOrName === "string"
-            ? angular.module(moduleOrName)
-            : moduleOrName;
+        let selector = options.selector;
         delete options.selector;
-        module.component(selector, angular.extend(options, { controller: controller }));
+        module(moduleOrName).component(selector, angular.extend(options, { controller: controller }));
     }
 }
 
 export function Service(moduleOrName: string | ng.IModule = 'app.services') {
     return (service: any) => {
-        var name = service.name;
-        var module = typeof moduleOrName === "string"
-            ? angular.module(moduleOrName)
-            : moduleOrName;
-        module.service(name, service);
+        let name = service.name;
+        if (!name) {
+            console.error('Service decorator can be used with named class only');
+        }
+        module(moduleOrName).service(name, service);
     }
 }
 
@@ -36,9 +39,6 @@ export interface PipeTransform {
 export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule = 'app.pipes') {
     return (Pipe: any) => {
         var instance = new Pipe();
-        var module = typeof moduleOrName === "string"
-            ? angular.module(moduleOrName)
-            : moduleOrName;
-        module.filter(options.name, () => instance.transform);
+        module(moduleOrName).filter(options.name, () => instance.transform);
     }
 }

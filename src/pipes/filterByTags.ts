@@ -6,7 +6,7 @@ import {PipeTransform, Pipe} from '../decorators';
 
 @Pipe({name: 'filterByTags'})
 export class FilterByTagsPipe implements PipeTransform {
-    transform(comments:any, tags:any) {
+    transform(comments: any, tags: any) {
         if (!tags.length) return comments;
         function check(comment) {
             let filterArray = tags.map((tag: any) => tag.text);
