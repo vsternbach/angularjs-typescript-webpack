@@ -2,7 +2,7 @@
 
 This project is an application skeleton for [AngularJS](http://angularjs.org/) 1.5 web app using new component syntax and typescript.
 
-It uses two different budnling systems webpack and systemjs, use the appropriate branch.
+It uses two different bunling systems webpack and systemjs, use the appropriate branch.
 
 Webpack branch has support for importing sass styles inline in the modules, for system js external stylesheets should be used, it has support for inline imports only with jspm.
 
@@ -18,13 +18,19 @@ You need git to clone the angularjs-typescript-webpack repository. You can get g
 We also use a number of node.js tools to initialize and test angular-seed. You must have node.js and
 its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/).
 
+Install these globally:
+
+```
+npm install -g webpack webpack-dev-server typings
+```
+
 ### Clone angularjs-typescript-webpack
 
 Clone the angularjs-typescript-webpack repository using git:
 
 ### Install Dependencies
 
-We have two kinds of dependencies in this project: development tools and application specific packages. They are both managed with npm in package.json as devDependencies and dependecies respectively.
+We have two kinds of dependencies in this project: development tools and application specific packages. They are both managed with npm in package.json as devDependencies and dependencies respectively.
 
 ```
 npm install
