@@ -36,9 +36,13 @@ export interface PipeTransform {
     transform(value: any, ...args: any[]): any;
 }
 
+interface PipeTransformStatic {
+    new(...args: any[]): PipeTransform;
+}
+
 export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule = 'app.pipes') {
-    return (Pipe: any) => {
-        var instance = new Pipe();
+    return (Pipe: PipeTransformStatic) => {
+        let instance = new Pipe();
         module(moduleOrName).filter(options.name, () => instance.transform);
     }
 }
