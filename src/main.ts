@@ -2,14 +2,14 @@
  * Created by voland on 4/2/16.
  */
 import 'angular';
-import 'angular-sanitize';
 import 'angular-ui-router';
+import 'angular-sanitize';
 import 'ng-tags-input';
 
-import services   from './services/services.module';
+
+import services from './services/services.module';
 import components from './components/components.module';
-import './components/comment/comment.component';
-import './components/comment-list/comments.component';
+import pipes from './pipes/pipes.module';
 
 function appConfig ($urlRouterProvider, $stateProvider, tagsInputConfigProvider) {
     $urlRouterProvider.otherwise('/');
@@ -30,14 +30,16 @@ function appConfig ($urlRouterProvider, $stateProvider, tagsInputConfigProvider)
 appConfig.$inject = ['$urlRouterProvider', '$stateProvider', 'tagsInputConfigProvider'];
 
 // configure the main module
-angular.module('app', [
-    'ngTagsInput',
-    'ngSanitize',
-    'ui.router',
-    services.name,
-    components.name
-])
-.config(appConfig);
+angular
+    .module('app', [
+        'ui.router',
+        'ngTagsInput',
+        'ngSanitize',
+        services.name,
+        components.name,
+        pipes.name
+    ])
+    .config(appConfig);
 
 // bootstrap angular
 angular.element(document).ready(() => {

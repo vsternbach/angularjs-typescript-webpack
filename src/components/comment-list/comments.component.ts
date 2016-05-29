@@ -1,11 +1,12 @@
 /**
  * Created by voland on 4/2/16.
  */
-import Component from '../../decorators';
+import {Component} from '../../decorators';
 import './comment-list.scss';
 import {IComment} from "../../interfaces";
 
-@Component('app.components', 'comments', {
+@Component({
+    selector: 'comments',
     template: `
         <div class="container-fluid">
             <div class="discussion-timeline">
@@ -17,7 +18,7 @@ import {IComment} from "../../interfaces";
             </div>
         </div>`
 })
-class CommentsController {
+export class CommentsController {
     comments: IComment[];
     emptyComment: IComment;
     tags: string[];

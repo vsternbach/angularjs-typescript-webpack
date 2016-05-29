@@ -2,7 +2,9 @@
  * Created by voland on 4/2/16.
  */
 import {IComment} from "../interfaces";
+import {Service} from "../decorators";
 
+@Service()
 export class Comments {
 
     static $inject = ['$http'];

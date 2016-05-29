@@ -2,11 +2,12 @@
  * Created by voland on 4/2/16.
  */
 
-import Component from '../../decorators';
+import {Component} from '../../decorators';
 import './comment.scss';
 import {IComment} from "../../interfaces";
 
-@Component('app.components', 'comment', {
+@Component({
+    selector: 'comment',
     bindings: {
         comment: '=',
         tags: '=',
@@ -54,7 +55,7 @@ import {IComment} from "../../interfaces";
             </div>
         </div>`
 })
-class CommentController {
+export class CommentController {
     editMode: boolean;
     comment: IComment;
     commentCopy: IComment;

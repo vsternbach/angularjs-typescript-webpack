@@ -1,17 +1,6 @@
 /**
- * Created by voland on 4/2/16.
+ * Created by vlad on 5/29/16.
  */
-
-
-export default angular.module('app.components', [])
-    .filter('filterByTags', () => (comments, tags) => {
-        if (!tags.length) return comments;
-        function check(comment) {
-            let filterArray = tags.map((tag: any) => tag.text);
-            let findCount = filterArray
-                .map((tag) => comment.tags.indexOf(tag) > -1 ? 1 : 0)
-                .reduce((prev, curr) => prev + curr);
-            return findCount === filterArray.length;
-        }
-        return comments.filter(check);
-    })
+export default angular.module('app.components', []);
+export {CommentController} from './comment/comment.component';
+export {CommentsController} from './comment-list/comments.component';
