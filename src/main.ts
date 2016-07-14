@@ -5,33 +5,16 @@ import 'angular';
 import 'angular-ui-router';
 import 'angular-sanitize';
 import 'ng-tags-input';
-
-
 import services from './services/services.module';
 import components from './components/components.module';
 import pipes from './pipes/pipes.module';
+import {appConfig, appName} from "./app.config";
+import {AppComponent} from "./components/app.component";
+import {Bootstrap} from "./decorators";
 
-function appConfig ($urlRouterProvider, $stateProvider, tagsInputConfigProvider) {
-    $urlRouterProvider.otherwise('/');
-    $stateProvider
-        .state('index', {
-            url: '/',
-            template: '<comments></comments>'
-        });
-    tagsInputConfigProvider
-        .setDefaults('tagsInput', {
-            placeholder: 'Search tags',
-            addFromAutocompleteOnly: true
-        })
-        .setDefaults('autoComplete', {
-            minLength: 1
-        })
-}
-appConfig.$inject = ['$urlRouterProvider', '$stateProvider', 'tagsInputConfigProvider'];
-
-// configure the main module
+// configure
 angular
-    .module('app', [
+    .module(appName, [
         'ui.router',
         'ngTagsInput',
         'ngSanitize',
@@ -41,7 +24,6 @@ angular
     ])
     .config(appConfig);
 
-// bootstrap angular
-angular.element(document).ready(() => {
-    angular.bootstrap(document, ['app']);
-});
+// bootstrap
+@Bootstrap(appName, AppComponent)
+class App {}

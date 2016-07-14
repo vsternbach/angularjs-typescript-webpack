@@ -55,7 +55,7 @@ import {IComment} from "../../interfaces";
             </div>
         </div>`
 })
-export class CommentController {
+export class CommentComponent {
     editMode: boolean;
     comment: IComment;
     commentCopy: IComment;

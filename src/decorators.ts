@@ -1,6 +1,4 @@
-/**
- * Created by voland on 4/2/16.
- */
+import {appName} from "./app.config";
 
 const module = function(moduleOrName) {
     return typeof moduleOrName === "string"
@@ -13,36 +11,58 @@ export function Component(options: {
     controllerAs?: string,
     template?: string,
     templateUrl?: string,
-    bindings? : any
-}, moduleOrName: string | ng.IModule = 'app.components') {
-    return (controller: Function) => {
-        let selector = options.selector;
+    bindings?: any,
+    directives?: any[]
+    pipes?: any[]
+    providers?: any[]
+}, moduleOrName: string | ng.IModule = `${appName}.components`) {
+    return (controller: any) => {
+        const selector = options.selector;
         delete options.selector;
+        delete options.directives;
+        delete options.pipes;
+        delete options.providers;
         module(moduleOrName).component(selector, angular.extend(options, { controller: controller }));
     }
 }
 
-export function Service(moduleOrName: string | ng.IModule = 'app.services') {
+export function Service(moduleOrName: string | ng.IModule = `${appName}.services`) {
     return (service: any) => {
-        let name = service.name;
+        const name = service.name;
+        const isProvider = service.hasOwnProperty('$get');
         if (!name) {
             console.error('Service decorator can be used with named class only');
         }
-        module(moduleOrName).service(name, service);
+        module(moduleOrName)[isProvider ? 'provider' : 'service'](name, service);
     }
-}
-
-export interface PipeTransform {
-    transform(value: any, ...args: any[]): any;
 }
 
 interface PipeTransformStatic {
     new(...args: any[]): PipeTransform;
 }
 
-export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule = 'app.pipes') {
+export interface PipeTransform {
+    transform(value: any, ...args: any[]): any;
+}
+
+export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule = `${appName}.pipes`) {
     return (Pipe: PipeTransformStatic) => {
-        let instance = new Pipe();
-        module(moduleOrName).filter(options.name, () => instance.transform);
+        const filter = () => {
+            const $injector = angular.injector(['ng']);
+            const instance:any = $injector.instantiate(Pipe);
+            return instance.transform.bind(instance);
+        };
+        module(moduleOrName).filter(options.name, filter);
+    }
+}
+
+export function Bootstrap(appName: string, appClass: any) {
+    return (anything: any) => {
+        if (!appClass) {
+            console.error(`Please provide main component class as a second argument to @Bootstrap decorator`);
+        }
+        angular.element(document).ready(() => {
+            angular.bootstrap(document, [appName]);
+        });
     }
 }

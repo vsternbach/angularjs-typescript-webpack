@@ -3,10 +3,17 @@
  */
 
 import {PipeTransform, Pipe} from '../decorators';
+// import {CommentsService} from "../services/comments.service";
 
 @Pipe({name: 'filterByTags'})
 export class FilterByTagsPipe implements PipeTransform {
+    static $inject = ['$q'];
+    constructor(private _$q: ng.IQService) {
+    }
+    
     transform(comments: any, tags: any) {
+        let deferred = this._$q.defer;
+        // console.log(this._comments.getComments);
         if (!tags.length) return comments;
         function check(comment) {
             let filterArray = tags.map((tag: any) => tag.text);

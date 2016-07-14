@@ -4,9 +4,15 @@
 import {Component} from '../../decorators';
 import './comment-list.scss';
 import {IComment} from "../../interfaces";
+import {CommentComponent} from "../comment/comment.component";
+import {CommentsService} from "../../services/comments.service";
+import {FilterByTagsPipe} from "../../pipes/filterByTags";
 
 @Component({
     selector: 'comments',
+    directives:  [CommentComponent],
+    providers:   [CommentsService],
+    pipes: [FilterByTagsPipe],
     template: `
         <div class="container-fluid">
             <div class="discussion-timeline">
@@ -18,17 +24,17 @@ import {IComment} from "../../interfaces";
             </div>
         </div>`
 })
-export class CommentsController {
+export class CommentsComponent {
     comments: IComment[];
     emptyComment: IComment;
     tags: string[];
     tagFilter: any[];
 
-    static $inject = ['Comments'];
-    constructor(private Comments) {
+    static $inject = ['CommentsService'];
+    constructor(private CommentsService) {
         this.emptyComment = {};
         this.tagFilter = [];
-        Comments.getComments().then((comments) => {
+        CommentsService.getComments().then((comments) => {
             this.comments = comments;
             this.tags = this.comments
                 .map((el) => el.tags)

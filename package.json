@@ -27,7 +27,7 @@
   "scripts": {
     "postinstall": "typings install",
     "prestart": "npm install",
-    "start": "webpack-dev-server --hot",
+    "start": "webpack-dev-server --hot --port 8081",
     "typings": "typings",
     "bundle": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & webpack -p ./dist/bundle.js"
   }

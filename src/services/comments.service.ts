@@ -5,7 +5,7 @@ import {IComment} from "../interfaces";
 import {Service} from "../decorators";
 
 @Service()
-export class Comments {
+export class CommentsService {
 
     static $inject = ['$http'];
     constructor(private $http) {
