@@ -1,7 +1,7 @@
 /**
  * Created by voland on 4/2/16.
  */
-import {Component} from '../../decorators';
+import {Component, Injectable} from '../../decorators';
 import './comment-list.scss';
 import {IComment} from "../../interfaces";
 import {CommentComponent} from "../comment/comment.component";
@@ -24,17 +24,18 @@ import {FilterByTagsPipe} from "../../pipes/filterByTags";
             </div>
         </div>`
 })
+
+@Injectable()
 export class CommentsComponent {
     comments: IComment[];
     emptyComment: IComment;
     tags: string[];
     tagFilter: any[];
-
-    static $inject = ['CommentsService'];
-    constructor(private CommentsService) {
+    
+    constructor(private _CommentsService: CommentsService) {
         this.emptyComment = {};
         this.tagFilter = [];
-        CommentsService.getComments().then((comments) => {
+        _CommentsService.getComments().then((comments) => {
             this.comments = comments;
             this.tags = this.comments
                 .map((el) => el.tags)

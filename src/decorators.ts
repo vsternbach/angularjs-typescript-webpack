@@ -12,6 +12,7 @@ export function Component(options: {
     template?: string,
     templateUrl?: string,
     bindings?: any,
+    require?: any,
     directives?: any[]
     pipes?: any[]
     providers?: any[]
@@ -48,6 +49,8 @@ export interface PipeTransform {
 export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule = `${appName}.pipes`) {
     return (Pipe: PipeTransformStatic) => {
         const filter = () => {
+            console.log(Pipe.$inject);
+            //@todo: add support for injection across all registered modules
             const $injector = angular.injector(['ng']);
             const instance:any = $injector.instantiate(Pipe);
             return instance.transform.bind(instance);
@@ -56,10 +59,18 @@ export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule 
     }
 }
 
-export function Bootstrap(appName: string, appClass: any) {
+
+export function Injectable() {
+    return (Class: any) => {
+        const $injector = angular.injector(['ng']);
+        Class.$inject = $injector.annotate(Class).map((member) => member.replace(/^_/, ''));
+    }
+}
+
+export function bootstrap(appName: string, appClass: any) {
     return (anything: any) => {
         if (!appClass) {
-            console.error(`Please provide main component class as a second argument to @Bootstrap decorator`);
+            console.error(`Please provide main component class as a second argument to @bootstrap decorator`);
         }
         angular.element(document).ready(() => {
             angular.bootstrap(document, [appName]);

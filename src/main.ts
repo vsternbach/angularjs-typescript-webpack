@@ -10,7 +10,7 @@ import components from './components/components.module';
 import pipes from './pipes/pipes.module';
 import {appConfig, appName} from "./app.config";
 import {AppComponent} from "./components/app.component";
-import {Bootstrap} from "./decorators";
+import {bootstrap} from "./decorators";
 
 // configure
 angular
@@ -25,5 +25,5 @@ angular
     .config(appConfig);
 
 // bootstrap
-@Bootstrap(appName, AppComponent)
+@bootstrap(appName, AppComponent)
 class App {}
