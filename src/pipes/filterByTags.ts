@@ -9,7 +9,7 @@ import {CommentsService} from "../services/comments.service";
 @Pipe({name: 'filterByTags'})
 export class FilterByTagsPipe implements PipeTransform {
     // static $inject = ['$q'];
-    // constructor(private _$q: ng.IQService, private _Comments_Service: CommentsService) {
+    // constructor(private _$q: ng.IQService, private _CommentsService: CommentsService) {
     constructor(private _$q: ng.IQService) {
     }
     
