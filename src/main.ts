@@ -3,11 +3,9 @@
  */
 import 'angular';
 import 'angular-ui-router';
-import 'angular-sanitize';
-import 'ng-tags-input';
+import 'ngstorage';
 import services from './services/services.module';
 import components from './components/components.module';
-import pipes from './pipes/pipes.module';
 import {appConfig, appName} from "./app.config";
 import {AppComponent} from "./components/app.component";
 import {bootstrap} from "./decorators";
@@ -16,11 +14,9 @@ import {bootstrap} from "./decorators";
 angular
     .module(appName, [
         'ui.router',
-        'ngTagsInput',
-        'ngSanitize',
+        'ngStorage',
         services.name,
-        components.name,
-        pipes.name
+        components.name
     ])
     .config(appConfig);
 

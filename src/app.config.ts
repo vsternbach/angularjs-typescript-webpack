@@ -1,22 +1,15 @@
-/**
- * Created by 500tech on 7/14/16.
- */
 export const appName = 'app';
 
-export function appConfig($urlRouterProvider, $stateProvider, tagsInputConfigProvider) {
-    $urlRouterProvider.otherwise('/');
+export function appConfig($urlRouterProvider, $stateProvider) {
+    $urlRouterProvider.otherwise('/films');
     $stateProvider
-        .state('root', {
-            url: '/',
+        .state('app', {
+            abstract: true,
             template: `<${appName}></${appName}>`
+        })
+        .state('app.list', {
+            url: '/:type',
+            template: `<list></list>`
         });
-    tagsInputConfigProvider
-        .setDefaults('tagsInput', {
-            placeholder: 'Search tags',
-            addFromAutocompleteOnly: true
-        })
-        .setDefaults('autoComplete', {
-            minLength: 1
-        })
 }
-appConfig.$inject = ['$urlRouterProvider', '$stateProvider', 'tagsInputConfigProvider'];
+appConfig.$inject = ['$urlRouterProvider', '$stateProvider'];
