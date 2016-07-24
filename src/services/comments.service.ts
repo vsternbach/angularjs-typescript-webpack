@@ -1,19 +1,13 @@
-/**
- * Created by voland on 4/2/16.
- */
-import {IComment} from "../interfaces";
-import {Service} from "../decorators";
+import {Injectable} from "../decorators";
 
-@Service()
+@Injectable()
 export class CommentsService {
 
-    static $inject = ['$http'];
-    constructor(private $http) {
+    constructor(private _$http) {
+        console.log(`CommentsService register`);
     }
 
     getComments() {
-        return this.$http.get('assets/mock.json').then((response: {data: IComment[]}) => {
-            return response.data;
-        });
+        return this._$http.get('assets/mock.json').then(response => response.data);
     };
 }

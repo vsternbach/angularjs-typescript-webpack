@@ -24,7 +24,6 @@ import {FilterByTagsPipe} from "../../pipes/filterByTags";
             </div>
         </div>`
 })
-
 @Injectable()
 export class CommentsComponent {
     comments: IComment[];
@@ -32,7 +31,7 @@ export class CommentsComponent {
     tags: string[];
     tagFilter: any[];
     
-    constructor(private _CommentsService: CommentsService) {
+    constructor(private _CommentsService) {
         this.emptyComment = {};
         this.tagFilter = [];
         _CommentsService.getComments().then((comments) => {

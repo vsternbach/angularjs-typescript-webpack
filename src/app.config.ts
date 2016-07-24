@@ -1,15 +1,11 @@
-/**
- * Created by 500tech on 7/14/16.
- */
-export const appName = 'app';
+import {routes} from "./app.routes";
+import {provideStates} from "./decorators";
 
 export function appConfig($urlRouterProvider, $stateProvider, tagsInputConfigProvider) {
+    provideStates(routes, $stateProvider);
+
     $urlRouterProvider.otherwise('/');
-    $stateProvider
-        .state('root', {
-            url: '/',
-            template: `<${appName}></${appName}>`
-        });
+
     tagsInputConfigProvider
         .setDefaults('tagsInput', {
             placeholder: 'Search tags',

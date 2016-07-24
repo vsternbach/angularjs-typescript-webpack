@@ -8,13 +8,12 @@ import 'ng-tags-input';
 import services from './services/services.module';
 import components from './components/components.module';
 import pipes from './pipes/pipes.module';
-import {appConfig, appName} from "./app.config";
-import {AppComponent} from "./components/app.component";
-import {bootstrap} from "./decorators";
+import {appConfig} from "./app.config";
+
+const appName = 'app';
 
 // configure
-angular
-    .module(appName, [
+angular.module(appName, [
         'ui.router',
         'ngTagsInput',
         'ngSanitize',
@@ -25,5 +24,6 @@ angular
     .config(appConfig);
 
 // bootstrap
-@bootstrap(appName, AppComponent)
-class App {}
+angular.element(document).ready(() => {
+        angular.bootstrap(document, [appName], { strictDi: true });
+});

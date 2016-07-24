@@ -1,4 +1,6 @@
-import {appName} from "./app.config";
+import {IState, IStateProvider} from "angular-ui-router";
+
+const appName = 'app';
 
 const module = function(moduleOrName) {
     return typeof moduleOrName === "string"
@@ -13,27 +15,30 @@ export function Component(options: {
     templateUrl?: string,
     bindings?: any,
     require?: any,
-    directives?: any[]
-    pipes?: any[]
+    directives?: any[],
+    pipes?: any[],
     providers?: any[]
 }, moduleOrName: string | ng.IModule = `${appName}.components`) {
-    return (controller: any) => {
+    return (Class: any) => {
         const selector = options.selector;
         delete options.selector;
         delete options.directives;
         delete options.pipes;
         delete options.providers;
-        module(moduleOrName).component(selector, angular.extend(options, { controller: controller }));
+        Class.selector = selector;
+        module(moduleOrName).component(selector, angular.extend(options, { controller: Class }));
     }
 }
+function annotate(func: any) {
+    const $injector = angular.injector(['ng']);
+    func.$inject = $injector.annotate(func).map(member => member.replace(/^_/, ''));
+}
 
-export function Service(moduleOrName: string | ng.IModule = `${appName}.services`) {
+export function Injectable(moduleOrName: string | ng.IModule = `${appName}.services`) {
     return (service: any) => {
         const name = service.name;
         const isProvider = service.hasOwnProperty('$get');
-        if (!name) {
-            console.error('Service decorator can be used with named class only');
-        }
+        annotate(service);
         module(moduleOrName)[isProvider ? 'provider' : 'service'](name, service);
     }
 }
@@ -48,32 +53,41 @@ export interface PipeTransform {
 
 export function Pipe(options: {name: string}, moduleOrName: string | ng.IModule = `${appName}.pipes`) {
     return (Pipe: PipeTransformStatic) => {
-        const filter = () => {
-            console.log(Pipe.$inject);
-            //@todo: add support for injection across all registered modules
-            const $injector = angular.injector(['ng']);
-            const instance:any = $injector.instantiate(Pipe);
-            return instance.transform.bind(instance);
-        };
-        module(moduleOrName).filter(options.name, filter);
-    }
-}
-
-
-export function Injectable() {
-    return (Class: any) => {
+        annotate(Pipe);
+        //@todo: add support for injection across all registered modules
+        debugger;
         const $injector = angular.injector(['ng']);
-        Class.$inject = $injector.annotate(Class).map((member) => member.replace(/^_/, ''));
+        const instance:any = $injector.instantiate(Pipe);
+        module(moduleOrName).filter(options.name, () => instance.transform.bind(instance));
     }
 }
 
-export function bootstrap(appName: string, appClass: any) {
-    return (anything: any) => {
-        if (!appClass) {
-            console.error(`Please provide main component class as a second argument to @bootstrap decorator`);
+export interface IComponentState extends IState {
+    state: string,
+    component?: any,
+    views?: { [name: string]: IComponentState }
+}
+
+function setTemplate(state: IComponentState) {
+    const selector = state.component.selector;
+    state.template = `<${selector}></${selector}>`;
+    delete state.component;
+}
+
+export function provideStates(states: IComponentState[], $stateProvider: IStateProvider) {
+    states.map((config) => {
+        const name = config.state;
+        const namedState = config.views;
+        if (namedState) {
+            const namedViews = Object.keys(namedState);
+            namedViews.forEach((view) => {
+                setTemplate(namedState[view]);
+            });
         }
-        angular.element(document).ready(() => {
-            angular.bootstrap(document, [appName]);
-        });
-    }
+        else {
+            setTemplate(config);
+        }
+        delete config.state;
+        return { name, config };
+    }).forEach(state => $stateProvider.state(state.name, state.config));
 }
