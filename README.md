@@ -1,28 +1,13 @@
 # angularjs-typescript-webpack starter
 
-This project is an application skeleton for [AngularJS](http://angularjs.org/) 1.5 web app using new component syntax and typescript.
+This project is an application skeleton for [AngularJS](http://angularjs.org/) 1.6+ web app using new component syntax, typescript 2 and webpack 2.
 
-It uses two different bunling systems webpack and systemjs, use the appropriate branch.
-
-Webpack branch has support for importing sass styles inline in the modules, for system js external stylesheets should be used, it has support for inline imports only with jspm.
-
+Project uses [angular-ts-decorators](https://github.com/vsternbach/angular-ts-decorators) to mimic angular 2+ style development in angularjs environment with typescript and webpack.
 ## Getting Started
 
-To get you started you can simply clone the angularjs-typescript-webpack repository and install the dependencies:
+To get you started you can simply clone the angularjs-typescript-webpack repository.
 
-### Prerequisites
-
-You need git to clone the angularjs-typescript-webpack repository. You can get git from
-[http://git-scm.com/](http://git-scm.com/).
-
-We also use a number of node.js tools to initialize and test angular-seed. You must have node.js and
-its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/).
-
-Install these globally:
-
-```
-npm install -g webpack webpack-dev-server typings
-```
+Some of the project dependencies are used just for example and can be removed if not needed. 
 
 ### Clone angularjs-typescript-webpack
 
@@ -40,9 +25,9 @@ npm install
 
 ```
 src/                    --> all of the source files for the application
+  assets/           --> static app assets
   components/           --> all app specific modules
   services/                --> all app common services
-  assets/                --> all of the app static assets
   main.ts                --> main application module
   index.html            --> app layout file (the main html template file of the app)
 ```
@@ -51,8 +36,8 @@ src/                    --> all of the source files for the application
 
 The angularjs-typescript-webpack project comes preconfigured with a local development webserver. It is a webpack-dev-server, that supports hot reload.  You can start this webserver with `npm start`.
 
-Now browse to the app at `http://localhost:8080/`.
+Now browse to the app at `http://localhost:3000/`.
 
 ### Building and running the App in Production
 
-To build the application for production just run `npm bundle`, it creates dist directory that have the production optimized build.
+To build the application for production just run `npm build`, it creates dist directory that have the production optimized build.

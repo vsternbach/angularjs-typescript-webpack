@@ -1,34 +1,135 @@
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-module.exports = {
+const sourcePath = path.join(__dirname, './src');
+const destPath = path.join(__dirname, './dist');
 
-    // set the context (optional)
-    context: path.join( __dirname, '/src'),
-    entry: 'main',
+module.exports = function (env) {
+  const nodeEnv = env && env.prod ? 'production' : 'development';
+  const isProd = nodeEnv === 'production';
 
-    // enable loading modules relatively (without the ../../ prefix)
-    resolve: {
-        root: path.join( __dirname, '/src'),
-        extensions: ['', '.ts', '.webpack.js', '.web.js', '.js']
+  const plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+      filename: 'vendor.bundle.js'
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: nodeEnv,
+    }),
+    new webpack.NamedModulesPlugin(),
+  ];
+
+  if (isProd) {
+    plugins.push(
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+          screw_ie8: true,
+          conditionals: true,
+          unused: true,
+          comparisons: true,
+          sequences: true,
+          dead_code: true,
+          evaluate: true,
+          if_return: true,
+          join_vars: true,
+        },
+        output: {
+          comments: false,
+        },
+      })
+    );
+  } else {
+    plugins.push(
+      new webpack.HotModuleReplacementPlugin()
+    );
+  }
+
+  return {
+    devtool: isProd ? 'source-map' : 'eval',
+    context: sourcePath,
+    entry: {
+      main: sourcePath + '/main.ts',
+      vendor: ['angular']
     },
-
+    output: {
+      path: destPath,
+      filename: '[name].bundle.js',
+    },
     module: {
-        loaders: [
-            // load css and process sass
-            { test: /\.scss$/, loaders: ["style", "css", "sass"]},
-
-            // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-            { test: /\.ts$/, loader: 'awesome-typescript-loader' }
-        ]
+      rules: [
+        {
+          test: /\.html$/,
+          exclude: /node_modules/,
+          loader: 'html-loader'
+        },
+        {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+          ]
+        },
+        {
+          test: /\.ts$/,
+          exclude: /node_modules/,
+          use: [
+            'ng-annotate-loader',
+            'awesome-typescript-loader'
+          ],
+        },
+      ],
+    },
+    resolve: {
+      extensions: ['.js', '.ts'],
+      modules: [
+        path.resolve(__dirname, 'node_modules'),
+        sourcePath
+      ]
     },
 
-    // webpack dev server configuration
+    plugins,
+
+    performance: isProd && {
+      maxAssetSize: 100,
+      maxEntrypointSize: 300,
+      hints: 'warning',
+    },
+
+    stats: {
+      colors: {
+        green: '\u001b[32m',
+      }
+    },
+
     devServer: {
-        contentBase: "./src",
-        noInfo: false,
-        inline: true
-    },
-
-    // support source maps
-    devtool: "source-map"
+      contentBase: './src',
+      historyApiFallback: true,
+      port: 3000,
+      compress: isProd,
+      inline: !isProd,
+      hot: !isProd,
+      stats: {
+        assets: true,
+        children: false,
+        chunks: false,
+        hash: false,
+        modules: false,
+        publicPath: false,
+        timings: true,
+        version: false,
+        warnings: true,
+        colors: {
+          green: '\u001b[32m',
+        }
+      },
+    }
+  };
 };

@@ -8,9 +8,10 @@
     "removeComments": false,
     "noImplicitAny": false
   },
+  "files": [
+    "src/main.ts"
+  ],
   "exclude": [
-    "node_modules",
-    "typings/main",
-    "typings/main.d.ts"
+    "node_modules"
   ]
 }
