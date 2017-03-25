@@ -1,0 +1,43 @@
+{
+  "name": "angularjs-typescript-webpack",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Angularjs-typescript-webpack starter project",
+  "repository": "https://github.com/vsternbach/angularjs-typescript-webpack",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/angular": "^1.6.7",
+    "@types/angular-ui-router": "^1.1.36",
+    "@types/gapi": "0.0.31",
+    "@types/gapi.auth2": "0.0.35",
+    "@types/jquery": "^2.0.40",
+    "@types/node": "^7.0.8",
+    "angular-ts-decorators": "0.0.23",
+    "awesome-typescript-loader": "^3.1.2",
+    "copyfiles": "^0.2.1",
+    "cross-env": "^3.2.3",
+    "css-loader": "^0.23.1",
+    "html-loader": "^0.4.5",
+    "ng-annotate-loader": "^0.2.0",
+    "node-sass": "^4.5.0",
+    "rimraf": "^2.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.13.2",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-sanitize": "^1.6.3",
+    "angular-ui-router": "^1.0.0-rc.1",
+    "ng-tags-input": "^3.0.0"
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "webpack-dev-server",
+    "webpack-prod": "cross-env NODE_ENV=production webpack --env.prod=true",
+    "build": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & npm run webpack-prod"
+  }
+}
