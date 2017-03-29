@@ -1,123 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>My AngularJS App</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <link href="assets/ng-tags-input.min.css" rel="stylesheet">
+  <meta name="google-signin-client_id" content="514763995828-lduak1stakj0efqk9ek00vemobuj4pfs.apps.googleusercontent.com">
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
 </head>
 <body>
-  <!--<ui-view></ui-view>-->
-  <app></app>
-  <script src="vendor.bundle.js"></script>
-  <script src="main.bundle.js"></script>
-  <script async defer src="https://apis.google.com/js/api.js"
-          onload="this.onload=function(){};handleClientLoad()"
-          onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
-  <!--<script>-->
-    <!--function handleClientLoad() {-->
-      <!--// Loads the client library and the auth2 library together for efficiency.-->
-      <!--// Loading the auth2 library is optional here since `gapi.client.init` function will load-->
-      <!--// it if not already loaded. Loading it upfront can save one network request.-->
-      <!--gapi.load('client:auth2', initClient);-->
-    <!--}-->
 
-    <!--function initClient() {-->
-      <!--// Initialize the client with API key and People API, and initialize OAuth with an-->
-      <!--// OAuth 2.0 client ID and scopes (space delimited string) to request access.-->
-      <!--gapi.client.init({-->
-        <!--apiKey: 'AIzaSyD-a9IF8KKYgoC3cpgS-Al7hLQDbugrDcw',-->
-        <!--discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest'],-->
-        <!--clientId: '514763995828-compute@developer.gserviceaccount.com',-->
-        <!--scope: 'profile'-->
-      <!--}).then(() => {-->
-        <!--// Listen for sign-in state changes.-->
-        <!--gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);-->
 
-        <!--// Handle the initial sign-in state.-->
-        <!--updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());-->
-      <!--});-->
-    <!--}-->
-
-    <!--function updateSigninStatus(isSignedIn) {-->
-      <!--// When signin status changes, this function is called.-->
-      <!--// If the signin status is changed to signedIn, we make an API call.-->
-      <!--if (isSignedIn) {-->
-        <!--makeApiCall();-->
-      <!--}-->
-    <!--}-->
-
-    <!--function handleSignInClick(event) {-->
-      <!--// Ideally the button should only show up after gapi.client.init finishes, so that this-->
-      <!--// handler won't be called before OAuth is initialized.-->
-      <!--gapi.auth2.getAuthInstance().signIn();-->
-    <!--}-->
-
-    <!--function handleSignOutClick(event) {-->
-      <!--gapi.auth2.getAuthInstance().signOut();-->
-    <!--}-->
-
-    <!--function makeApiCall() {-->
-      <!--// Make an API call to the People API, and print the user's given name.-->
-      <!--// gapi.client.people.get({-->
-      <!--//   resourceName: 'people/me'-->
-      <!--// }).then(function(response) {-->
-      <!--//   console.log('Hello, ' + response.result.names[0].givenName);-->
-      <!--// }, function(reason) {-->
-      <!--//   console.log('Error: ' + reason.result.error.message);-->
-      <!--// });-->
-    <!--}-->
-    <!--// bootstrap-->
-    <!--angular.element(document).ready(() => {-->
-      <!--angular.bootstrap(document, ['AppModule'], { strictDi: true });-->
-    <!--});-->
-
-  <!--</script>-->
-  <!--<button id="signin-button" onclick="handleSignInClick()">Sign In</button>-->
-  <!--<button id="signout-button" onclick="handleSignOutClick()">Sign Out</button>-->
-  <button id="signin">Sign in</button>
-  <button id="signout">Sign out</button>
-  <script>
-    window.addEventListener('message', function(event) {
-      console.log(event.data);
-    });
-
-    function handleClientLoad() {
-      gapi.load('auth2', function() {
-        auth2 = gapi.auth2.init({
-          client_id: '514763995828-compute@developer.gserviceaccount.com',
-          scope: 'email',
-          fetch_basic_profile: false,
-          cookie_policy: 'single_host_origin'
-        });
-
-        auth2.isSignedIn.listen(function(val) {
-          if (val) {
-            console.log('User signed in.');
-          } else {
-            console.log('User signed out.');
-          }
-        });
-
-        // Sign the user in, and then retrieve their ID.
-        document.getElementById('signin').addEventListener('click', function() {
-          auth2.signIn({
-            scope: 'email',
-            prompt: 'select_account'
-          }).then(function(result) {
-            console.log('Signed in!');
-          }, function(error) {
-            console.log(error);
-          });
-        });
-
-        document.getElementById('signout').addEventListener('click', function() {
-          auth2.signOut();
-        });
-      });
-    }
-  </script>
+<!--<ui-view></ui-view>-->
+<app></app>
+<script src="vendor.bundle.js"></script>
+<script src="main.bundle.js"></script>
+<script id="gapi" async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};bootstrap()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 </html>
