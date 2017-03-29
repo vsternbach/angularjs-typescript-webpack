@@ -1,0 +1,27 @@
+<div class="mdl-grid" style="max-width: 640px; margin-top: 40px;">
+  <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-list">
+    <task ng-repeat="task in $ctrl.tasks" task="task" on-delete="$ctrl.removeTask($event)"></task>
+
+    <div class="task-item add-task mdl-list__item">
+      <button class="add-task-button mdl-button mdl-js-button mdl-button--icon"
+              ng-show="!$ctrl.newItem"
+              ng-click="$ctrl.begetNewItem()">
+        <i class="material-icons">add_box</i>
+      </button>
+      <span class="mdl-list__item-secondary-action" ng-show="$ctrl.newItem">
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="add-item">
+          <input type="checkbox" id="add-item" class="mdl-checkbox__input"
+                 ng-checked="$ctrl.isCompleted"
+                 ng-click="$ctrl.toggleNewItemStatus()"/>
+        </label>
+      </span>
+      <div class="mdl-textfield mdl-js-textfield is-focused" ng-show="$ctrl.newItem" style="margin: -20px 0">
+        <input class="mdl-textfield__input" type="text" id="list-item" ng-model="$ctrl.newItem.title"
+               ng-keypress="$ctrl.handleTyping($event)"
+               ng-keydown="$ctrl.handleEsc($event)">
+        <label class="mdl-textfield__label" for="list-item">List item</label>
+      </div>
+    </div>
+
+  </div>
+</div>

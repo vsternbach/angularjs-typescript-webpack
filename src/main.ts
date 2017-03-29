@@ -1,14 +1,10 @@
 /**
  * Created by voland on 4/2/16.
  */
-import * as angular from 'angular';
-import 'angular-ui-router';
-import 'angular-sanitize';
-import 'ng-tags-input';
-import { NgModule, NgModuleDecorated } from 'angular-ts-decorators';
-import { AppComponent } from './app.component';
-import { CommentsModule } from './components/comments/comments.module';
+import { NgModule } from 'angular-ts-decorators';
+import { AppComponent } from './components/app.component';
 import { routes } from './app.routes';
+import { TasksModule } from './components/tasks.module';
 
 export interface IComponentState extends ng.ui.IState {
   state: string;
@@ -20,31 +16,32 @@ export interface IComponentState extends ng.ui.IState {
   name: 'AppModule',
   imports: [
     'ui.router',
-    'ngTagsInput',
     'ngSanitize',
-    CommentsModule
+    TasksModule
   ],
   declarations: [
     AppComponent
   ]
 })
-class AppModule {
+export class AppModule {
   /*@ngInject*/
   public config($urlRouterProvider: ng.ui.IUrlRouterProvider,
-                $stateProvider: ng.ui.IStateProvider,
-                tagsInputConfigProvider: any) {
+                $stateProvider: ng.ui.IStateProvider) {
     AppModule.provideStates(routes, $stateProvider);
-
     $urlRouterProvider.otherwise('/');
+  }
 
-    tagsInputConfigProvider
-      .setDefaults('tagsInput', {
-        placeholder: 'Search tags',
-        addFromAutocompleteOnly: true
-      })
-      .setDefaults('autoComplete', {
-        minLength: 1
-      });
+  /*@ngInject*/
+  public run($window: ng.IWindowService, $q: ng.IQService) {
+    // replace browser Promise to $q in app
+    $window.Promise = $q;
+
+    // const auth = new OAuth();
+    // console.log(auth.isSignedIn());
+    // auth.on('gapi.auth2.isSignedIn', (isSignedIn) => {
+    //   if (!isSignedIn) {
+    //   }
+    // });
   }
 
   private static setTemplate(state: IComponentState) {
@@ -71,8 +68,3 @@ class AppModule {
     }).forEach(state => $stateProvider.state(state.name, state.config));
   }
 }
-
-// bootstrap
-angular.element(document).ready(() => {
-  angular.bootstrap(document, [(<NgModuleDecorated>AppModule).module.name], { strictDi: true });
-});

@@ -1,0 +1,21 @@
+<div class="mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">{{$ctrl.tasklist.title || 'Default'}}</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Help</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Task Lists</span>
+    <task-lists on-selection-change="$ctrl.changeTasklist($event)"></task-lists>
+  </div>
+  <main class="mdl-layout__content mdl-color--grey-100">
+    <tasks tasklist="$ctrl.tasklist.id"></tasks>
+  </main>
+</div>

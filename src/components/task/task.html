@@ -1,0 +1,30 @@
+<div class="task-item mdl-list__item"
+     ng-class="{ 'task-item--completed': $ctrl.isCompleted,
+     'task-item--disabled': $ctrl.isUpdating }"
+     ng-mouseleave="$ctrl.toggleEditMode(true)">
+
+  <span class="mdl-list__item-secondary-action">
+    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="{{$ctrl.task.id}}">
+      <input type="checkbox" id="{{$ctrl.task.id}}" class="mdl-checkbox__input" ng-checked="$ctrl.isCompleted"  ng-click="$ctrl.updateStatus()"/>
+    </label>
+  </span>
+
+  <span class="mdl-list__item-primary-content" ng-click="$ctrl.toggleEditMode()" ng-hide="$ctrl.editMode">{{$ctrl.task.title}}</span>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-list__item-primary-content" ng-show="$ctrl.editMode" style="margin: -20px 0">
+    <input class="mdl-textfield__input" type="text" id="task-title"
+           ng-model="$ctrl.task.title"
+           ng-model-options="{ debounce: 500 }"
+           ng-change="$ctrl.updateTitle()">
+    <label class="mdl-textfield__label" for="task-title"></label>
+  </div>
+
+  <div class="menu-button-wrapper">
+    <!--<button class="mdl-button mdl-js-button mdl-button&#45;&#45;icon" title="Rename list" ng-click="$ctrl.rename()">-->
+      <!--<i class="material-icons">{{$ctrl.editMode ? 'check' : 'create'}}</i>-->
+    <!--</button>-->
+    <button class="mdl-button mdl-js-button mdl-button--icon" title="Delete item" ng-click="$ctrl.deleteTask()">
+      <i class="material-icons">clear</i>
+    </button>
+  </div>
+</div>

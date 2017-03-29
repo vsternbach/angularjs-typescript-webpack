@@ -1,0 +1,21 @@
+<nav class="mdl-navigation">
+  <tasklist-item ng-repeat="taskList in $ctrl.taskLists"
+                 tasklist="taskList"
+                 on-delete="$ctrl.removeTasklist($event)"
+                 on-select="$ctrl.changeTasklist($event)"></tasklist-item>
+</nav>
+<div class="add-tasklist-button mdl-textfield mdl-js-textfield mdl-textfield--expandable"
+     ng-class="{'is-dirty': $ctrl.tasklistTitle}">
+  <div class="mdl-textfield__expandable-holder" style="margin-left: 40px">
+    <input class="mdl-textfield__input" type="text" id="tasklist-title"
+           placeholder="New tasklist"
+           ng-model="$ctrl.tasklistTitle"
+           ng-keypress="$ctrl.handleTyping($event)"
+           ng-blur="$ctrl.blurInput()">
+    <label class="mdl-textfield__label" for="tasklist-title"></label>
+  </div>
+  <label class="mdl-button mdl-js-button mdl-button--icon mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+         for="tasklist-title">
+    <i class="material-icons">add</i>
+  </label>
+</div>
