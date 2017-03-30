@@ -8,6 +8,8 @@
   "devDependencies": {
     "@types/angular": "^1.6.7",
     "@types/angular-ui-router": "^1.1.36",
+    "@types/gapi": "0.0.31",
+    "@types/gapi.auth2": "0.0.35",
     "@types/jquery": "^2.0.40",
     "@types/node": "^7.0.8",
     "angular-ts-decorators": "0.0.23",
@@ -27,7 +29,6 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
-    "@types/es6-promise": "0.0.32",
     "angular": "^1.6.3",
     "angular-sanitize": "^1.6.3",
     "angular-ui-router": "^1.0.0-rc.1",
