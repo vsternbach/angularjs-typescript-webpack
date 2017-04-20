@@ -54,8 +54,15 @@ module.exports = function (env) {
     devtool: isProd ? 'source-map' : 'eval',
     context: sourcePath,
     entry: {
-      main: sourcePath + '/main.ts',
-      vendor: ['angular']
+      main: sourcePath + '/bootstrap.ts',
+      vendor: [
+        'angular/angular.js',
+        'angular-ui-router/release/angular-ui-router.js',
+        'angular-sanitize/angular-sanitize.js',
+        'eventemitter3',
+        'material-design-lite/material.css',
+        'material-design-lite/material.js'
+      ]
     },
     output: {
       path: destPath,
@@ -75,6 +82,13 @@ module.exports = function (env) {
             'style-loader',
             'css-loader',
             'sass-loader'
+          ]
+        },
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
           ]
         },
         {

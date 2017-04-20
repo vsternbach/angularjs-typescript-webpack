@@ -29,8 +29,7 @@
   "dependencies": {
     "angular": "^1.6.3",
     "angular-sanitize": "^1.6.3",
-    "angular-ui-router": "^1.0.0-rc.1",
-    "ng-tags-input": "^3.0.0"
+    "angular-ui-router": "^1.0.0-rc.1"
   },
   "scripts": {
     "prestart": "npm install",

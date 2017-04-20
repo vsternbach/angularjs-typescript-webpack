@@ -1,0 +1,22 @@
+<div class="tasklist-item mdl-navigation__link"
+     ng-class="{'tasklist-item--disabled': $ctrl.isLoading}"
+     ng-click="$ctrl.selectTasklist()"
+     ng-mouseleave="$ctrl.blurInput(true)">
+  <div class="tasklist-item-title">
+    <div class="tasklist-item-title-label" ng-show="!$ctrl.editMode">{{$ctrl.tasklist.title}}</div>
+    <div class="tasklist-item-title-input mdl-textfield mdl-js-textfield" style="margin: -20px 0" ng-show="$ctrl.editMode">
+      <input class="mdl-textfield__input" type="text" id="{{$ctrl.tasklist.id}}"
+             ng-model="$ctrl.tasklistTitle"
+             ng-keypress="$ctrl.handleTyping($event)">
+      <label class="mdl-textfield__label" for="{{$ctrl.tasklist.id}}"></label>
+    </div>
+  </div>
+  <div class="menu-button-wrapper">
+    <button class="mdl-button mdl-js-button mdl-button--icon" title="Rename list" ng-click="$ctrl.rename()">
+      <i class="material-icons">{{$ctrl.editMode ? 'check' : 'create'}}</i>
+    </button>
+    <button class="mdl-button mdl-js-button mdl-button--icon" title="Delete list" ng-click="$ctrl.delete()">
+      <i class="material-icons">clear</i>
+    </button>
+  </div>
+</div>

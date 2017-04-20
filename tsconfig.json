@@ -6,10 +6,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "lib": ["es2015", "dom"]
   },
   "files": [
-    "src/main.ts"
+    "src/bootstrap.ts"
   ],
   "exclude": [
     "node_modules"

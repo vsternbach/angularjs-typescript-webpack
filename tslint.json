@@ -14,10 +14,7 @@
     "no-string-literal": false,
     "no-console": false,
     "no-namespace": false,
-    "no-consecutive-blank-lines": [
-      true,
-      2
-    ],
+    "no-consecutive-blank-lines": true,
     "trailing-comma": [
       true,
       {
@@ -33,7 +30,6 @@
       true,
       "ban-keywords",
       "check-format",
-      "allow-pascal-case",
       "allow-leading-underscore"
     ],
     "linebreak-style": [
@@ -49,30 +45,15 @@
       "check-module",
       "check-type"
     ],
+    "member-access": false,
     "member-ordering": [
       true,
-      {
-        "order": [
-          "public-static-field",
-          "protected-static-field",
-          "private-static-field",
-          "public-instance-field",
-          "protected-instance-field",
-          "private-instance-field",
-          "constructor",
-          "public-static-method",
-          "public-instance-method",
-          "protected-static-method",
-          "protected-instance-method",
-          "private-static-method",
-          "private-instance-method"
-        ]
-      }
+      "static-before-instance",
+      "variables-before-functions"
     ],
     "one-line": [
       true,
       "check-catch",
-      "check-finally",
       "check-open-brace",
       "check-whitespace"
     ],
