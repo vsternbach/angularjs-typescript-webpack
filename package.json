@@ -1,7 +1,7 @@
 {
   "name": "angularjs-typescript-webpack",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Angularjs-typescript-webpack starter project",
   "repository": "https://github.com/vsternbach/angularjs-typescript-webpack",
   "license": "MIT",
