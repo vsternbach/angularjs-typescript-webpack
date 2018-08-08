@@ -1,6 +1,6 @@
 {
   "name": "angularjs-typescript-webpack",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Angularjs-typescript-webpack starter project",
   "repository": "https://github.com/vsternbach/angularjs-typescript-webpack",
   "license": "MIT",
@@ -52,8 +52,10 @@
     "eventemitter3": "3.0.1"
   },
   "scripts": {
-    "start": "copyfiles -f src/assets/* dist/ & webpack-dev-server --mode=development --open",
-    "build": "rimraf dist & webpack --mode=production --optimize-minimize",
+    "prestart": "rimraf dist & copyfiles -f src/assets/* dist/",
+    "start": "webpack-dev-server --mode=development --open",
+    "prebuild": "npm run prestart",
+    "build": "webpack --mode=production --optimize-minimize",
     "test": "karma start --single-run",
     "test:dev": "karma start --browsers Chrome",
     "clean-build": "rimraf dist & copyfiles -f src/index.html dist/ & copyfiles -f src/assets/* dist/assets & npm run webpack-prod"

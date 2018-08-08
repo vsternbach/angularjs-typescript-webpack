@@ -1,6 +1,5 @@
-import { StateProvider } from '@uirouter/angularjs';
-import { Ng1StateDeclaration } from '@uirouter/angularjs/lib/interface';
-import { getTypeName, NgModule } from 'angular-ts-decorators';
+import { NgModule } from 'angular-ts-decorators';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
@@ -9,23 +8,12 @@ import { HeroService } from './hero.service';
 import { HeroesComponent } from './heroes/heroes.component';
 import { MessageService } from './message.service';
 import { MessagesComponent } from './messages/messages.component';
-
 import './styles.css';
 
-export interface UiState extends Ng1StateDeclaration {
-  component?: any;
-}
-
-const routes: UiState[] = [
-  { name: 'index', url: '', redirectTo: 'dashboard' },
-  { name: 'dashboard', url: '/dashboard', component: DashboardComponent },
-  { name: 'detail', url: '/detail/{id}', component: HeroDetailComponent },
-  { name: 'heroes', url: '/heroes', component: HeroesComponent }
-];
-
 @NgModule({
+  id: 'AppModule',
   imports: [
-    'ui.router'
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
@@ -36,21 +24,9 @@ const routes: UiState[] = [
     HeroSearchComponent
   ],
   providers: [
-    { provide: 'heroService', useClass: HeroService },
-    { provide: 'messageService', useClass: MessageService }
+    HeroService,
+    MessageService,
   ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule {
-  static config($stateProvider: StateProvider) {
-    'ngInject';
-    routes.forEach((route) => $stateProvider.state(getNg1StateDeclaration(route)));
-  }
-}
-
-function getNg1StateDeclaration(state: UiState) {
-  if (state.component && typeof state.component !== 'string') {
-    state.component = getTypeName(state.component);
-  }
-  return state;
-}
+export class AppModule {}
