@@ -1,6 +1,6 @@
 # angularjs-typescript-webpack starter
 
-This project is an application skeleton for [AngularJS](http://angularjs.org/) 1.6+ web app using new component syntax, typescript 2 and webpack 2.
+This project is an application skeleton for [AngularJS](http://angularjs.org/) 1.7, typescript 2.9 and webpack 4.5
 
 Project uses [angular-ts-decorators](https://github.com/vsternbach/angular-ts-decorators) to mimic angular 2+ style development in angularjs environment with typescript and webpack.
 

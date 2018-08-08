@@ -1,0 +1,20 @@
+<h2>My Heroes</h2>
+
+<div class="heroes-add">
+  <label>Hero name:
+    <input ng-model="$ctrl.heroName" />
+  </label>
+  <!-- ng-click passes input value to add() and then clears the input -->
+  <button ng-click="$ctrl.add($ctrl.heroName); $ctrl.heroName=''">
+    add
+  </button>
+</div>
+
+<ul class="heroes">
+  <li ng-repeat="hero in $ctrl.heroes track by hero.id">
+    <a ui-sref="detail({id: hero.id})">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+    <button class="delete" title="delete hero" ng-click="$ctrl.delete(hero)">x</button>
+  </li>
+</ul>

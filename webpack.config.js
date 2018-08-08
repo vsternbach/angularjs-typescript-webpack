@@ -1,104 +1,100 @@
 const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 const path = require('path');
 
-const sourcePath = path.join(__dirname, './src');
-const destPath = path.join(__dirname, './dist');
+const sourcePath = path.resolve(__dirname, 'src');
+const distPath = path.resolve(__dirname, 'dist');
 
-module.exports = function (env) {
-  const nodeEnv = env && env.prod ? 'production' : 'development';
-  const isProd = nodeEnv === 'production';
+module.exports = (env, argv) => {
+  const isProd = argv.mode === 'production';
 
   const plugins = [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-      filename: 'vendor.bundle.js'
+    new HtmlWebPackPlugin({
+      template: sourcePath + '/index.html'
     }),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: nodeEnv,
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:4].css',
+      chunkFilename: '[id].[contenthash:4].css'
     }),
-    new webpack.NamedModulesPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      tslint: true,
+      checkSyntacticErrors: true
+    })
   ];
 
   if (isProd) {
     plugins.push(
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          screw_ie8: true,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-        },
-        output: {
-          comments: false,
-        },
-      })
+      new webpack.NormalModuleReplacementPlugin(
+        /\/environments\/environment\.ts/,  `${sourcePath}/environments/environment.prod.ts`
+      ),
+      new UglifyJsPlugin({ sourceMap: true })
     );
   } else {
-    plugins.push(
-      new webpack.HotModuleReplacementPlugin()
-    );
+    plugins.push(new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin());
   }
 
-  return {
-    devtool: isProd ? 'source-map' : 'eval',
-    context: sourcePath,
+  const config = {
     entry: {
-      main: sourcePath + '/bootstrap.ts',
-      vendor: [
-        'angular/angular.js',
-        'angular-ui-router/release/angular-ui-router.js',
-        'angular-sanitize/angular-sanitize.js',
-        'eventemitter3',
-        'material-design-lite/material.css',
-        'material-design-lite/material.js'
-      ]
+      app: sourcePath + '/main.ts',
     },
     output: {
-      path: destPath,
-      filename: '[name].bundle.js',
+      path: distPath,
+      filename: '[name].bundle.[hash:4].js',
     },
     module: {
       rules: [
         {
           test: /\.html$/,
-          exclude: /node_modules/,
-          loader: 'html-loader'
-        },
-        {
-          test: /\.scss$/,
-          exclude: /node_modules/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'sass-loader'
-          ]
+          loader: 'html-loader',
+          options: { minimize: true }
         },
         {
           test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ]
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'resolve-url-loader']
+        },
+        {
+          test: /\.scss$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'resolve-url-loader', 'sass-loader']
         },
         {
           test: /\.ts$/,
           exclude: /node_modules/,
           use: [
-            'ng-annotate-loader',
-            'awesome-typescript-loader'
-          ],
+            {
+              loader: 'ng-annotate-loader',
+              options: {
+                ngAnnotate: 'ng-annotate-patched',
+                sourcemap: !isProd,
+              },
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                configFile: sourcePath + '/tsconfig.app.json',
+                // disable type checker - we will use it in fork plugin
+                transpileOnly: true,
+              }
+            }
+          ]
         },
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          loader: 'file-loader',
+          options: {
+            name: 'images/[name].[ext]'
+          }
+        },
+        {
+          test: /\.(eot|ttf|woff|woff2)$/,
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]'
+          }
+        }
       ],
     },
     resolve: {
@@ -108,42 +104,28 @@ module.exports = function (env) {
         sourcePath
       ]
     },
-
     plugins,
-
-    performance: isProd && {
-      maxAssetSize: 100,
-      maxEntrypointSize: 300,
-      hints: 'warning',
-    },
-
-    stats: {
-      colors: {
-        green: '\u001b[32m',
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          }
+        }
       }
     },
-
+    // devtool: 'eval-source-map',
     devServer: {
-      contentBase: './src',
-      historyApiFallback: true,
-      port: 3000,
-      compress: isProd,
-      inline: !isProd,
-      hot: !isProd,
-      stats: {
-        assets: true,
-        children: false,
-        chunks: false,
-        hash: false,
-        modules: false,
-        publicPath: false,
-        timings: true,
-        version: false,
-        warnings: true,
-        colors: {
-          green: '\u001b[32m',
-        }
-      },
+      contentBase: distPath,
+      hot: true
     }
   };
+
+  if (!isProd) {
+    config.devtool = 'source-map';
+  }
+
+  return config;
 };

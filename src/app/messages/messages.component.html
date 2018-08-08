@@ -1,0 +1,7 @@
+<div class="messages" ng-if="$ctrl.messageService.messages.length">
+
+  <h2>Messages</h2>
+  <button class="clear" ng-click="$ctrl.messageService.clear()">clear</button>
+  <div ng-repeat="message in $ctrl.messageService.messages"> {{message}} </div>
+
+</div>

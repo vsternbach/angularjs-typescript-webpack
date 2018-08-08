@@ -1,0 +1,46 @@
+{
+  "commands": {
+    "save": {
+      "rootDirectory": "./templates/saved"
+    },
+    "generate": {
+      "createBarrels": false
+    }
+  },
+  "templateMap": {
+    "spec": {
+      "spec": "./templates/component.spec.ts",
+      "description": "Generates spec for component"
+    },
+    "with-spec": {
+      "component": "./templates/component.ts",
+      "spec": "./templates/component.spec.ts",
+      "html": "./templates/component.html",
+      "css": "./templates/component.css",
+      "description": "Generates a component with spec"
+    },
+    "with-module": {
+      "html": "./templates/component.html",
+      "style": "./templates/component.scss",
+      "component": "./templates/component.ts",
+      "module": "./templates/module.ts",
+      "description": "Generates a component and module in one shot."
+    }
+  },
+  "fileNames": {
+    "with-spec": {
+      "component": ".ts",
+      "spec": ".spec.ts",
+      "html": ".html",
+      "css": ".css"
+    },
+    "spec": {
+      "spec": ".spec.ts"
+    }
+  },
+  "globalSelectorPrefix" : {
+    "component" : null,
+    "directive" : null
+  },
+  "customVariables" : {}
+}

@@ -1,0 +1,11 @@
+<div class="hero-detail" ng-if="$ctrl.hero">
+  <h2>{{$ctrl.hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{$ctrl.hero.id}}</div>
+  <div>
+    <label>name:
+      <input ng-model="$ctrl.hero.name" placeholder="name"/>
+    </label>
+  </div>
+  <button ng-click="$ctrl.goBack()">go back</button>
+  <button ng-click="$ctrl.save()">save</button>
+</div>

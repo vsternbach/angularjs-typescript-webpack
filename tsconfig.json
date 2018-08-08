@@ -1,18 +1,21 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "outDir": "out-tsc",
     "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "lib": ["es2015", "dom"]
+    "target": "es5",
+    "module": "es2015",
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
-  "files": [
-    "src/bootstrap.ts"
-  ],
   "exclude": [
+    "angular-cli-tools/**/*.ts",
     "node_modules"
   ]
 }

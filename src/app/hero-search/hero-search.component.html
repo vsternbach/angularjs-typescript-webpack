@@ -1,0 +1,13 @@
+<div class="search-component">
+  <h4>Hero Search</h4>
+
+  <input id="search-box" ng-model="$ctrl.term" ng-model-options="{ debounce: 500 }" ng-change="$ctrl.search($ctrl.term)"/>
+
+  <ul class="search-result">
+    <li ng-repeat="hero in $ctrl.heroes track by hero.id" >
+      <a ui-sref="detail({id: hero.id})">
+        {{hero.name}}
+      </a>
+    </li>
+  </ul>
+</div>
