@@ -5,7 +5,7 @@
   "repository": "https://github.com/vsternbach/angularjs-typescript-webpack",
   "license": "MIT",
   "devDependencies": {
-    "@types/angular": "1.6.49",
+    "@types/angular": "1.6.50",
     "@types/angular-mocks": "^1.7.0",
     "@types/jasmine": "^2.8.8",
     "@types/jquery": "^3.3.5",
