@@ -13,7 +13,7 @@
     "angular-cli-tools": "^1.10.2",
     "angular-mocks": "^1.7.2",
     "angularjs-testbed": "^0.3.3",
-    "copyfiles": "2.0.0",
+    "copyfiles": "2.1.0",
     "cross-env": "5.2.0",
     "css-loader": "1.0.0",
     "file-loader": "1.1.11",
