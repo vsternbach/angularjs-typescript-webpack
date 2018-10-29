@@ -15,7 +15,7 @@
     "angularjs-testbed": "^0.3.3",
     "copyfiles": "2.1.0",
     "cross-env": "5.2.0",
-    "css-loader": "1.0.0",
+    "css-loader": "1.0.1",
     "file-loader": "1.1.11",
     "fork-ts-checker-webpack-plugin": "^0.4.4",
     "html-loader": "0.5.5",
