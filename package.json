@@ -9,7 +9,7 @@
     "@types/angular-mocks": "^1.7.0",
     "@types/jasmine": "^2.8.8",
     "@types/jquery": "^3.3.5",
-    "@types/node": "^10.5.8",
+    "@types/node": "^11.9.0",
     "angular-cli-tools": "^1.10.2",
     "angular-mocks": "^1.7.2",
     "angularjs-testbed": "^0.3.3",
