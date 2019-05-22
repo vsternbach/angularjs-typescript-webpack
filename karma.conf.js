@@ -32,12 +32,12 @@ module.exports = function (config) {
     },
     files: [
       'node_modules/jquery/dist/jquery.js',
-      'src/test.ts'
+      'src/test.js'
       // 'src/**/*.spec.ts'
     ],
     preprocessors: {
       // 'web/**/*.ts': ['webpack'],
-      'src/test.ts': ['webpack'],
+      'src/test.js': ['webpack'],
       // 'test/test.js': ['webpack'],
       // 'web/ui-framework/**/*.js': ['webpack'],
       // 'test/testing-utils/*.ts': ['karma-typescript'],

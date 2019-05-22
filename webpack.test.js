@@ -28,7 +28,7 @@ module.exports = {
         use: ['css-loader', 'resolve-url-loader', 'sass-loader']
       },
       {
-        test: /\.ts$/,
+        test: /\.(js|ts)$/,
         exclude: /node_modules/,
         use: [
           {

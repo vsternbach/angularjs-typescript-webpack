@@ -2,11 +2,11 @@
 // Then we find all the tests.
 import { TestBed } from 'angularjs-testbed';
 
-const context = (require as any).context('./', true, /\.spec\.ts$/);
+const context = require.context('./', true, /\.spec\.ts$/);
 context.keys().map(context);
 
 // source files are needed only for coverage
-const source = (require as any).context('./app/', true, /\.ts$/);
+const source = require.context('./app/', true, /\.ts$/);
 source.keys().map(source);
 
 // set strictDi on angular.mock.inject to catch errors if /*@ngInject*/ is missing
