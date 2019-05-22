@@ -39,7 +39,7 @@ module.exports = (env, argv) => {
 
   const config = {
     entry: {
-      app: sourcePath + '/main.ts',
+      app: sourcePath + '/main.js',
     },
     output: {
       path: distPath,
@@ -61,7 +61,7 @@ module.exports = (env, argv) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader', 'resolve-url-loader', 'sass-loader']
         },
         {
-          test: /\.ts$/,
+          test: /\.(js|ts)$/,
           exclude: /node_modules/,
           use: [
             {
