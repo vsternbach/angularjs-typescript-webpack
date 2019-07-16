@@ -27,7 +27,7 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-webpack": "^3.0.5",
-    "mini-css-extract-plugin": "^0.6.0",
+    "mini-css-extract-plugin": "^0.8.0",
     "ng-annotate-loader": "0.6.1",
     "ng-annotate-patched": "1.9.0",
     "ngtemplate-loader": "2.0.1",
