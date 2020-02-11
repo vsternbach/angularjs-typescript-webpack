@@ -25,7 +25,7 @@
     "json-loader": "0.5.7",
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^2.0.1",
+    "karma-jasmine": "^3.1.1",
     "karma-webpack": "^3.0.5",
     "mini-css-extract-plugin": "^0.6.0",
     "ng-annotate-loader": "0.6.1",
