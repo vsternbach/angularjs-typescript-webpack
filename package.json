@@ -46,7 +46,7 @@
     "webpack-dev-server": "3.4.1"
   },
   "dependencies": {
-    "@uirouter/angularjs": "1.0.22",
+    "@uirouter/angularjs": "1.0.26",
     "angular": "^1.7.8",
     "angular-ts-decorators": "^3.7.7",
     "eventemitter3": "3.1.2"
