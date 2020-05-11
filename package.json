@@ -49,7 +49,7 @@
     "@uirouter/angularjs": "1.0.22",
     "angular": "^1.7.8",
     "angular-ts-decorators": "^3.7.7",
-    "eventemitter3": "3.1.2"
+    "eventemitter3": "4.0.3"
   },
   "scripts": {
     "prestart": "rimraf dist & copyfiles -f src/assets/* dist/",
